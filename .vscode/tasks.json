@@ -1,0 +1,47 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build Raylib (G++ Working)",
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                // Вихідний файл та ім'я .exe
+                "-o",
+                "${workspaceFolder}/main.exe",
+                "src/Config.cpp",
+                "src/Food.cpp",
+                "src/Game.cpp",
+                "src/Snake.cpp",
+                "src/main.cpp",
+                
+                // Шлях до заголовних файлів (Include path) - ПРАВИЛЬНИЙ ДЛЯ VCPKG
+                "-Iinclude",
+                "-IC:/Users/Alina/Documents/vcpkg/installed/x64-windows/include",
+                
+                // Шлях до файлів бібліотеки (Library path) - ПРАВИЛЬНИЙ ДЛЯ VCPKG
+                "-L",
+                "C:/Users/Alina/Documents/vcpkg/installed/x64-windows/lib",
+                
+                // Зв'язування з Raylib та системними бібліотеками
+                "C:/Users/Alina/Documents/vcpkg/installed/x64-windows/lib/raylib.lib",
+                "-lopengl32",
+                "-lgdi32",
+                "-lwinmm",
+                "-pthread",
+                // Інші прапорці
+                "-static", 
+                "-std=c++14",
+                "-Wall"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always"
+            },
+            "problemMatcher": "$gcc"
+        }
+    ]
+}
