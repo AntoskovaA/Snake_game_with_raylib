@@ -12,7 +12,7 @@ struct Config {
 
     static Color BrightGreen() { return Color{144, 238, 144, 255};; }
     static Color DarkGreen() { return Color{80, 200, 120, 255}; }
-    static constexpr double updateInterval = 0.2;
+    static constexpr double updateInterval = 0.26;
 
     static Vector2 GetPixelPos(Vector2 gridPos);
     static bool ElementInDeque(Vector2 element, std::deque<Vector2> deque);
