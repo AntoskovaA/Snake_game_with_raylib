@@ -55,8 +55,13 @@ void Game::DrawGameOver()
 
 void Game::DrawUI()
 {
-    DrawText("Snake Game", Config::offset - 5, 20, 40, BLACK);
-    DrawText(TextFormat("%i", score), Config::offset - 5, Config::offset + Config::cellSize * Config::cellCount + 10, 40, BLACK);
+    DrawTextEx(mainFont, "Snake Game", {float(Config::offset - 5), float(20)},65, 5, BLACK);
+    DrawTextEx(mainFont, "Snake Game", {float(Config::offset - 4), float(20)},65, 5, BLACK);
+    DrawTextEx(mainFont, "Snake Game", {float(Config::offset - 6), float(20)},65, 5, BLACK);
+
+    DrawTextEx(mainFont, TextFormat("%i", score), {float(Config::offset - 5), float(Config::offset + Config::cellSize * Config::cellCount + 10)}, 50, 4, BLACK);
+    DrawTextEx(mainFont, TextFormat("%i", score), {float(Config::offset - 4), float(Config::offset + Config::cellSize * Config::cellCount + 10)}, 50, 4, BLACK);
+    DrawTextEx(mainFont, TextFormat("%i", score), {float(Config::offset - 6), float(Config::offset + Config::cellSize * Config::cellCount + 10)}, 50, 4, BLACK);
 }
 
 void Game::Update()
@@ -87,7 +92,6 @@ void Game::CheckCollisionWithFood()
             score++;
             break;
         }
-
     }
 }
 
@@ -130,16 +134,18 @@ void Game::DrawStartPage()
 {
     ClearBackground(Config::BrightGreen());
     const char *text = "SIMPLE SNAKE";
-    int fontSize = 40;
+    int fontSize = 80;
 
     int textWidth = MeasureText(text, fontSize);
 
     int posX = GetScreenWidth() / 2 - textWidth / 2;
     int posY = GetScreenHeight() / 2 - 100;
 
-    DrawText(text, posX, posY, fontSize, WHITE);
+    DrawTextEx(mainFont, text, { (float)posX, (float)posY }, fontSize, 8, WHITE);
+    DrawTextEx(mainFont, text, { (float)posX + 1, (float)posY }, fontSize, 8, WHITE);
+    DrawTextEx(mainFont, text, { (float)posX - 1, (float)posY }, fontSize, 8, WHITE);
     front_page_snake.Draw();
-    DrawText("Press 'space' to start palying", posX, GetScreenHeight() / 2, 15, BLACK);
+    DrawTextEx(mainFont, "Press 'space' to start palying", {float(posX), float (GetScreenHeight() / 2 + 130)}, 30, 2, BLACK);
 }
 
 void Game::HandleInput()
@@ -181,4 +187,26 @@ void Game::HandleInput()
         if (!start)
             running = true;
     }
+}
+
+Game::Game()
+{
+    mainFont = LoadFontEx("my_font.ttf", 128, 0, 0);
+    Image image = LoadImage("Graphics/mousee.png");
+    foodTexture = LoadTextureFromImage(image);
+    UnloadImage(image);
+
+    for (int i = 0; i < Config::foodCount; i++)
+    {
+        Food newFood(snake.body);
+        newFood.SetTexture(foodTexture);
+        foods.push_back(newFood);
+        foods[i].position = foods[i].GenerateRandomPos(snake.body, foods);
+    }
+}
+
+Game::~Game()
+{
+    UnloadTexture(foodTexture);
+    UnloadFont(mainFont);
 }

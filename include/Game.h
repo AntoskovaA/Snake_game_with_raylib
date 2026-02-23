@@ -12,6 +12,7 @@ class Game
     double lastUpdateTime = 0;
     bool eventTriggered(double interval);
     Texture2D foodTexture;
+    Font mainFont;
 
 public:
     Snake snake = Snake({6, 9}, 3);
@@ -38,22 +39,7 @@ public:
 
     void GameOver();
 
-    Game()
-    {
-        Image image = LoadImage("Graphics/food.png");
-        foodTexture = LoadTextureFromImage(image);
-        UnloadImage(image);
+    Game();
 
-        for(int i = 0; i < Config::foodCount; i++) {
-        Food newFood(snake.body);
-        newFood.SetTexture(foodTexture);
-        foods.push_back(newFood);
-        foods[i].position = foods[i].GenerateRandomPos(snake.body, foods);
-    }
-    }
-
-    ~Game()
-    {
-        UnloadTexture(foodTexture);
-    }
+    ~Game();
 };
