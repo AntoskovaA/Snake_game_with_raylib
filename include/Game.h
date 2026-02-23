@@ -13,6 +13,7 @@ class Game
     bool eventTriggered(double interval);
     Texture2D foodTexture;
     Font mainFont;
+    Texture2D gameOver;
 
 public:
     Snake snake = Snake({6, 9}, 3);

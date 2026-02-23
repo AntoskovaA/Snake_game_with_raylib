@@ -49,8 +49,9 @@ void Game::DrawWorld()
 void Game::DrawGameOver()
 {
     ClearBackground({144, 238, 144, 255});
-    DrawText("Game Over...", GetScreenWidth() / 2 - 150, GetScreenHeight() / 2 - 25, 50, BLACK);
-    DrawSmile();
+    DrawTexture(gameOver, GetScreenWidth() / 2 - 300, GetScreenHeight() / 2 - 300, WHITE);
+    //DrawText("Game Over...", GetScreenWidth() / 2 - 150, GetScreenHeight() / 2 - 25, 50, BLACK);
+   // DrawSmile();
 }
 
 void Game::DrawUI()
@@ -191,10 +192,16 @@ void Game::HandleInput()
 
 Game::Game()
 {
+    Image img_game_over = LoadImage("Graphics/game_over.png");
+    Image *pointer = &img_game_over;
+    ImageResize(pointer, 500, 500);
+
+    gameOver = LoadTextureFromImage(*pointer);
     mainFont = LoadFontEx("my_font.ttf", 128, 0, 0);
     Image image = LoadImage("Graphics/mousee.png");
     foodTexture = LoadTextureFromImage(image);
     UnloadImage(image);
+    UnloadImage(img_game_over);
 
     for (int i = 0; i < Config::foodCount; i++)
     {
@@ -209,4 +216,5 @@ Game::~Game()
 {
     UnloadTexture(foodTexture);
     UnloadFont(mainFont);
+    UnloadTexture(gameOver);
 }
