@@ -21,29 +21,23 @@ bool Game::eventTriggered(double interval)
 
 void Game::DrawSmile()
 {
-    // Позиція зліва (можна підправити під себе)
     float startX = GetScreenWidth() / 2 + 170;
     float startY = GetScreenHeight() / 2.0f - 50;
     float thickness = 3.5f;
 
-    // 1. Очі-палички (як у твоєму початковому коді)
     DrawLineEx({startX, startY}, {startX, startY + 50}, thickness, BLACK);
     DrawLineEx({startX + 60, startY}, {startX + 60, startY + 50}, thickness, BLACK);
 
-    // 2. Сумний "трикутний" рот (дві лінії будиночком ^)
-    // Вершина рота (найвища точка)
     Vector2 mouthTop = {startX + 30, startY + 70};
 
-    // Ліва частина "даху"
     DrawLineEx(mouthTop, {startX, startY + 100}, thickness, BLACK);
 
-    // Права частина "даху"
     DrawLineEx(mouthTop, {startX + 60, startY + 100}, thickness, BLACK);
 }
 
 void Game::DrawWorld()
 {
-    ClearBackground({203, 195, 227, 255});
+    ClearBackground({236, 255, 220, 255});
     DrawRectangleLinesEx(Rectangle{float(Config::offset) - 5, float(Config::offset) - 5, float(Config::cellSize) * Config::cellCount + 10, float(Config::cellSize) * Config::cellCount + 10}, 5, BLACK);
     for (int i = 0; i < Config::foodCount; i++)
     {
@@ -54,7 +48,7 @@ void Game::DrawWorld()
 
 void Game::DrawGameOver()
 {
-    ClearBackground({203, 195, 227, 255});
+    ClearBackground({144, 238, 144, 255});
     DrawText("Game Over...", GetScreenWidth() / 2 - 150, GetScreenHeight() / 2 - 25, 50, BLACK);
     DrawSmile();
 }
@@ -135,19 +129,15 @@ void Game::GameOver()
 void Game::DrawStartPage()
 {
     ClearBackground(Config::BrightGreen());
-    // DrawText("SIMPLE SNAKE", )
     const char *text = "SIMPLE SNAKE";
     int fontSize = 40;
 
-    // Отримуємо ширину тексту в пікселях
     int textWidth = MeasureText(text, fontSize);
 
-    // Розраховуємо X: (Центр екрана) - (Половина ширини тексту)
     int posX = GetScreenWidth() / 2 - textWidth / 2;
     int posY = GetScreenHeight() / 2 - 100;
 
     DrawText(text, posX, posY, fontSize, WHITE);
-    // front_page_snake.body = {Vector2{18, 13}, Vector2{17, 13}, Vector2{16, 13}, Vector2{15, 13}, Vector2{15, 14}, Vector2{15, 15}, Vector2{14, 15}};
     front_page_snake.Draw();
     DrawText("Press 'space' to start palying", posX, GetScreenHeight() / 2, 15, BLACK);
 }
@@ -159,7 +149,7 @@ void Game::HandleInput()
         if (start)
         {
             start = false;
-            running = true; // Запускаємо рух
+            running = true;
         }
         if (isOver)
         {

@@ -8,10 +8,10 @@ struct Config {
     static const int cellSize = 35;
     static const int cellCount = 25;
     static const int offset = 75;
-    static const int foodCount = 5; // Кількість їжі в одному місці
+    static const int foodCount = 5;
 
-    static Color BrightGreen() { return Color{203, 195, 227, 255};; }
-    static Color DarkGreen() { return Color{53, 94, 59, 255}; }
+    static Color BrightGreen() { return Color{144, 238, 144, 255};; }
+    static Color DarkGreen() { return Color{80, 200, 120, 255}; }
     static constexpr double updateInterval = 0.2;
 
     static Vector2 GetPixelPos(Vector2 gridPos);

@@ -1,7 +1,6 @@
 
 #include <raylib.h>
 #include <deque>
-//#include <raymath.h>
 #include "../include/Config.h"
 
 Vector2 Config::GetPixelPos(Vector2 gridPos) 

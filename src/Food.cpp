@@ -4,7 +4,6 @@ Food::Food(std::deque<Vector2> snakeBody) {
     Image image = LoadImage("Graphics/food.png");
     texture = LoadTextureFromImage(image);
     UnloadImage(image);
-    // При першому створенні передаємо пустий вектор, щоб не було помилки
     position = GenerateRandomCell(); 
 }
 
@@ -26,15 +25,12 @@ Vector2 Food::GenerateRandomPos(std::deque<Vector2>& snakeBody, const std::vecto
         newPos = GenerateRandomCell();
         badPosition = false;
 
-        // Перевірка 1: Чи не на змії?
         if (Config::ElementInDeque(newPos, snakeBody)) {
             badPosition = true;
             continue;
         }
 
-        // Перевірка 2: Чи не на іншій їжі?
         for (const auto& f : allFood) {
-            // Перевіряємо, чи позиція збігається з іншою їжею (крім себе самої за адресою)
             if (&f != this && Vector2Equals(newPos, f.position)) {
                 badPosition = true;
                 break;

@@ -40,14 +40,13 @@ public:
 
     Game()
     {
-        // Створюємо 5 одиниць їжі в конструкторі
         Image image = LoadImage("Graphics/food.png");
         foodTexture = LoadTextureFromImage(image);
         UnloadImage(image);
 
         for(int i = 0; i < Config::foodCount; i++) {
         Food newFood(snake.body);
-        newFood.SetTexture(foodTexture); // Даємо їжі спільну текстуру
+        newFood.SetTexture(foodTexture);
         foods.push_back(newFood);
         foods[i].position = foods[i].GenerateRandomPos(snake.body, foods);
     }
